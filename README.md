@@ -103,7 +103,3 @@ npm run preview
 - **Floating animation** — weather icon gently bobs up and down
 - **Shimmer skeleton** — animated loading placeholders
 - **Smooth transitions** — all state changes animate in/out
-
-## 📄 License
-
-MIT — free to use for personal and commercial projects.
