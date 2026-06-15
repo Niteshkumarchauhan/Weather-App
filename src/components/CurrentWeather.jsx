@@ -51,7 +51,7 @@ const CurrentWeather = ({ weather, convertTemp, tempSymbol, unit }) => {
   return (
     <div className="w-full">
       {/* Main weather card */}
-      <div className="glass rounded-3xl p-6 md:p-8 mb-4">
+      <div className="glass rounded-3xl p-6 md:p-8 mb-4 premium-border">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           {/* Left: Location + Temp */}
           <div className="flex-1">

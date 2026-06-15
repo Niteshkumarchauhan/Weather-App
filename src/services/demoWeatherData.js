@@ -129,6 +129,21 @@ export const createDemoSuggestions = (query) => {
     }));
 };
 
+export const createDemoAirQuality = () => ({
+  dt: Math.floor(Date.now() / 1000),
+  main: { aqi: 2 },
+  components: {
+    co: 233.64,
+    no: 0.01,
+    no2: 12.5,
+    o3: 68.2,
+    so2: 1.2,
+    pm2_5: 8.4,
+    pm10: 14.1,
+    nh3: 0.5,
+  },
+});
+
 const hashCode = (value) => {
   return value.split("").reduce((hash, char) => {
     hash = (hash << 5) - hash + char.charCodeAt(0);

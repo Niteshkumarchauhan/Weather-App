@@ -109,10 +109,10 @@ const SearchBar = ({ onSearch, onLocationSearch, loading }) => {
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="px-6 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400
+          className="px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400
                      text-white font-semibold rounded-2xl transition-all duration-300 
                      disabled:opacity-50 disabled:cursor-not-allowed
-                     hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 active:translate-y-0
+                     hover:shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5 active:translate-y-0
                      whitespace-nowrap"
         >
           {loading ? (

@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  createDemoAirQuality,
   createDemoForecast,
   createDemoSuggestions,
   createDemoWeather,
@@ -116,6 +117,46 @@ export const fetchCitySuggestions = async (query) => {
     }
     throw error;
   }
+};
+
+/**
+ * Fetch air quality by coordinates
+ */
+export const fetchAirQuality = async (lat, lon) => {
+  if (DEMO_MODE) return createDemoAirQuality();
+
+  try {
+    const response = await axios.get(`${BASE_URL}/air_pollution`, {
+      params: { lat, lon, appid: API_KEY },
+    });
+    return response.data.list[0];
+  } catch (error) {
+    if (error.response?.status === 401 || error.response?.status === 429) {
+      return createDemoAirQuality();
+    }
+    throw error;
+  }
+};
+
+/**
+ * Process raw forecast into next 24 hours (3-hour intervals)
+ */
+export const processHourlyForecast = (forecastList) => {
+  return forecastList.slice(0, 8).map((item) => {
+    const date = new Date(item.dt * 1000);
+    return {
+      time: date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      }),
+      dt: item.dt,
+      temp: Math.round(item.main.temp),
+      icon: item.weather[0].icon,
+      description: item.weather[0].description,
+      pop: Math.round((item.pop || 0) * 100),
+      humidity: item.main.humidity,
+    };
+  });
 };
 
 /**

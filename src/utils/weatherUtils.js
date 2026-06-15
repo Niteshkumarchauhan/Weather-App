@@ -147,3 +147,76 @@ export const isDaytime = (dt, sunrise, sunset) => {
  * Capitalize first letter of each word
  */
 export const capitalize = (str) => str.replace(/\b\w/g, (c) => c.toUpperCase());
+
+/**
+ * Calculate dew point from temp (°C) and humidity (%)
+ */
+export const getDewPoint = (temp, humidity) => {
+  const a = 17.27;
+  const b = 237.7;
+  const alpha = (a * temp) / (b + temp) + Math.log(humidity / 100);
+  return Math.round((b * alpha) / (a - alpha));
+};
+
+/**
+ * Comfort index 0–100 from temp, humidity, and wind (m/s)
+ */
+export const getComfortIndex = (temp, humidity, windSpeed) => {
+  let score = 100;
+  if (temp < 5 || temp > 35) score -= 30;
+  else if (temp < 10 || temp > 30) score -= 15;
+  if (humidity > 80) score -= 20;
+  else if (humidity > 65) score -= 10;
+  if (windSpeed > 15) score -= 15;
+  else if (windSpeed > 10) score -= 8;
+  return Math.max(0, Math.min(100, score));
+};
+
+/**
+ * Clothing advice based on temperature and condition
+ */
+export const getClothingAdvice = (temp, weatherCode) => {
+  const code = weatherCode ? Math.floor(weatherCode / 100) : 8;
+  if (code === 6) return "Heavy coat, gloves & warm layers";
+  if (code === 2 || code === 5) return "Waterproof jacket & umbrella";
+  if (temp >= 30) return "Light breathable fabrics & sun protection";
+  if (temp >= 22) return "T-shirt or light layers";
+  if (temp >= 15) return "Light jacket or sweater";
+  if (temp >= 8) return "Warm jacket recommended";
+  return "Heavy winter clothing";
+};
+
+/**
+ * AQI label and color from OpenWeather 1–5 scale
+ */
+export const getAQILabel = (aqi) => {
+  const levels = {
+    1: { label: "Good", color: "text-emerald-400", bg: "bg-emerald-500" },
+    2: { label: "Fair", color: "text-lime-400", bg: "bg-lime-500" },
+    3: { label: "Moderate", color: "text-yellow-400", bg: "bg-yellow-500" },
+    4: { label: "Poor", color: "text-orange-400", bg: "bg-orange-500" },
+    5: { label: "Very Poor", color: "text-red-400", bg: "bg-red-500" },
+  };
+  return levels[aqi] || levels[3];
+};
+
+/**
+ * Estimate UV index from time of day and cloud cover
+ */
+export const estimateUVIndex = (isDay, cloudCover = 0) => {
+  if (!isDay) return 0;
+  const base = 8;
+  const reduction = Math.round((cloudCover / 100) * base * 0.7);
+  return Math.max(1, base - reduction);
+};
+
+/**
+ * Comfort label from index score
+ */
+export const getComfortLabel = (index) => {
+  if (index >= 80) return { label: "Excellent", color: "text-emerald-400" };
+  if (index >= 60) return { label: "Good", color: "text-lime-400" };
+  if (index >= 40) return { label: "Fair", color: "text-yellow-400" };
+  if (index >= 20) return { label: "Uncomfortable", color: "text-orange-400" };
+  return { label: "Poor", color: "text-red-400" };
+};

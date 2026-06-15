@@ -15,7 +15,7 @@ const UnitToggle = ({ unit, onToggle }) => {
       </span>
       <div className="relative w-8 h-4 bg-white/10 rounded-full">
         <div
-          className={`absolute top-0.5 w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400
+          className={`absolute top-0.5 w-3 h-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-400
                       transition-all duration-300 ${isCelsius ? "left-0.5" : "left-4"}`}
         />
       </div>
